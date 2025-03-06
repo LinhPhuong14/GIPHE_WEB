@@ -32,7 +32,7 @@ export function LandingNavbar() {
         <div className="flex items-center gap-6 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
             <BookOpen className="h-6 w-6" />
-            <span className="font-bold">EduLearn</span>
+            <span className="font-bold">GIPHE</span>
           </Link>
           <nav className="hidden md:flex gap-6">
             <Link
