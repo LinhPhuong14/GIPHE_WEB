@@ -36,7 +36,7 @@ export function LandingNavbar() {
           </Link>
           <nav className="hidden md:flex gap-6">
             <Link
-              href="/#features"
+              href="/features"
               className={cn(
                 "text-sm font-medium transition-colors hover:text-primary",
                 pathname === "/#features" ? "text-foreground" : "text-foreground/60",
@@ -45,7 +45,7 @@ export function LandingNavbar() {
               Features
             </Link>
             <Link
-              href="/#testimonials"
+              href="/testimonials"
               className={cn(
                 "text-sm font-medium transition-colors hover:text-primary",
                 pathname === "/#testimonials" ? "text-foreground" : "text-foreground/60",
@@ -54,7 +54,7 @@ export function LandingNavbar() {
               Testimonials
             </Link>
             <Link
-              href="/#pricing"
+              href="/pricing"
               className={cn(
                 "text-sm font-medium transition-colors hover:text-primary",
                 pathname === "/#pricing" ? "text-foreground" : "text-foreground/60",
