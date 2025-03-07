@@ -7,7 +7,7 @@ import { LandingFooter } from "@/components/landingpage/footer"
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col container justify-between mx-auto">
       <LandingNavbar />
       <main className="flex-1">
         <LandingHero />
