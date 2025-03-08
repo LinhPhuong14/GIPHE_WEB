@@ -3,6 +3,16 @@ import NextAuth from "next-auth"
 // import GithubProvider from "next-auth/providers/github"
 import CredentialsProvider from "next-auth/providers/credentials"
 
+interface Session {
+  user: {
+    id: string;
+    role: string;
+  };
+}
+type Token = {
+  id: string;
+  role: string;
+};
 // Mock user database
 const users = [
   {
@@ -71,7 +81,7 @@ export const authOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: Token }) {
       if (token && session.user) {
         session.user.id = token.id as string
         session.user.role = token.role as string

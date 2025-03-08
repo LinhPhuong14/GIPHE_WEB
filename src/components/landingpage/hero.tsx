@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
@@ -16,7 +15,8 @@ export function LandingHero() {
           minSize={0.6}
           maxSize={1.4}
           particleDensity={100}
-          className="w-full h-full"
+
+          className="w-full h-full z-0"
           particleColor="#7928CA"
         />
       </div>
@@ -28,7 +28,7 @@ export function LandingHero() {
             transition={{ duration: 0.5 }}
           >
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-              Introducing EduLearn
+              Introduce to GIPHE
             </div>
           </motion.div>
           <motion.div
@@ -67,11 +67,6 @@ export function LandingHero() {
                 </button>
               </Link>
             </BackgroundGradient>
-            <Link href="/#features">
-              <Button variant="outline" size="lg" className="h-12 px-8">
-                Learn More
-              </Button>
-            </Link>
           </motion.div>
         </div>
       </div>

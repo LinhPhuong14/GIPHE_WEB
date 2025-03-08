@@ -7,7 +7,7 @@ import { BackgroundGradient } from "@/components/ui/background-gradient"
 
 export function LandingCta() {
   return (
-    <section id="pricing" className="py-12 md:py-24 lg:py-32 bg-muted/50">
+    <section id="pricing" className="py-12 md:py-24 lg:py-32 bg-muted/50 dark:bg-muted dark:bg-opacity-50 z-10">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

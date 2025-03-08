@@ -46,7 +46,7 @@ const features = [
 
 export function LandingFeatures() {
   return (
-    <section id="features" className="py-12 md:py-24 lg:py-32 bg-muted/50">
+    <section id="features" className="py-12 md:py-24 lg:py-32 bg-muted/50 dark:bg-muted dark:bg-opacity-50 z-10">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
@@ -57,7 +57,7 @@ export function LandingFeatures() {
             </p>
           </div>
         </div>
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12 z-50">
           {features.map((feature, index) => (
             <motion.div
               key={index}
