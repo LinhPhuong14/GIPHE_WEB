@@ -1,20 +1,33 @@
+"use client"
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
-import { auth } from "@/lib/auth"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import { redirect } from "next/navigation"
 import { LoginForm } from "@/components/login-form"
 
-export const metadata: Metadata = {
-  title: "Login - EduLearn",
-  description: "Login to your EduLearn account",
-}
+// export const metadata: Metadata = {
+//   title: "Login - GIPHE",
+//   description: "Login to your EduLearn account",
+// }
 
-export default async function LoginPage() {
-  const session = await auth()
+export default function LoginPage() {
+  const router = useRouter()
+  const { data: session, status } = useSession()
+  const [isLoading, setIsLoading] = useState(true)
 
-  if (session) {
-    redirect("/dashboard")
+  useEffect(() => {
+    if (status === "authenticated" && session) {
+      router.push("/dashboard")
+    } else if (status !== "loading") {
+      setIsLoading(false)
+    }
+  }, [session, status, router])
+
+  if (isLoading) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>
   }
 
   return (
@@ -22,7 +35,7 @@ export default async function LoginPage() {
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
         <div className="absolute inset-0 bg-zinc-900">
           <Image
-            src=""
+            src="/placeholder.svg?height=1080&width=1920"
             width={1920}
             height={1080}
             alt="Authentication"
@@ -67,4 +80,3 @@ export default async function LoginPage() {
     </div>
   )
 }
-
