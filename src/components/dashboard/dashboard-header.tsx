@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import { ModeToggle } from "../mode-toggle";
 
 interface DashboardHeaderProps {
   user: {
@@ -33,15 +34,15 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
 
   return (
     <div className="flex items-center justify-between p-4">
-      
+      <ModeToggle />
       <div className="flex items-center gap-4">
-        <Input placeholder="Search..." />
+        <Input className="max-w-7xl w-60" placeholder="Search..." />
         <Button variant="ghost">
           <Bell />
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Avatar>
+            <Avatar className="border">
               <Image src={user.image} alt={user.name} />
               <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>
@@ -49,7 +50,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
           <DropdownMenuContent>
             <DropdownMenuLabel>Profile</DropdownMenuLabel>
             <DropdownMenuItem>
-              <a href="/profile">View Profile</a>
+              <a href="/dashboard/profile">View Profile</a>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut()}>

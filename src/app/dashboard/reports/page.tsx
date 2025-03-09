@@ -79,7 +79,7 @@ export default function LearningReportsPage() {
   const [timeRange, setTimeRange] = useState("month")
 
   return (
-    <div className="container py-6">
+    <div className="container py-6 mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Learning Reports</h1>
         <Select defaultValue={timeRange} onValueChange={setTimeRange}>
