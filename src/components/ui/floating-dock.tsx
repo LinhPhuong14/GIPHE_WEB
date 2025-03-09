@@ -5,11 +5,12 @@ import {
   MotionValue,
   motion,
   useMotionValue,
+  useScroll,
   useSpring,
   useTransform,
 } from "motion/react";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const FloatingDock = ({
   items,
@@ -21,10 +22,10 @@ export const FloatingDock = ({
   mobileClassName?: string;
 }) => {
   return (
-    <>
+    <div className="bg-transparent">
       <FloatingDockDesktop items={items} className={desktopClassName} />
       <FloatingDockMobile items={items} className={mobileClassName} />
-    </>
+    </div>
   );
 };
 
@@ -96,7 +97,7 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden md:flex h-16 gap-4 items-end  rounded-2xl bg-gray-50 dark:bg-neutral-900 px-4 pb-3",
+        "mx-auto hidden md:flex h-16 gap-4 items-end  rounded-2xl bg-transparent px-4 pb-3",
         className
       )}
     >
@@ -119,21 +120,21 @@ function IconContainer({
   href: string;
 }) {
   let ref = useRef<HTMLDivElement>(null);
-
+  const [hovered, setHovered] = useState(false);
   let distance = useTransform(mouseX, (val) => {
     let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-
     return val - bounds.x - bounds.width / 2;
   });
 
-  let widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  let heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  //default size
+  let widthTransform = useTransform(distance, [-150, 0, 150], [40, 100, 40]);
+  let heightTransform = useTransform(distance, [-150, 0, 150], [40, 50, 40]);
 
-  let widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
+  let widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 80, 20]);
   let heightTransformIcon = useTransform(
     distance,
     [-150, 0, 150],
-    [20, 40, 20]
+    [20, 80, 20]
   );
 
   let width = useSpring(widthTransform, {
@@ -158,8 +159,6 @@ function IconContainer({
     damping: 12,
   });
 
-  const [hovered, setHovered] = useState(false);
-
   return (
     <Link href={href}>
       <motion.div
@@ -167,25 +166,34 @@ function IconContainer({
         style={{ width, height }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center relative"
+        className="aspect-square rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center relative"
       >
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {hovered && (
             <motion.div
               initial={{ opacity: 0, y: 10, x: "-50%" }}
               animate={{ opacity: 1, y: 0, x: "-50%" }}
               exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 border dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
+              className="px-2 py-0.5 whitespace-pre rounded-md bg-white/80 border dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
             >
               {title}
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
         <motion.div
           style={{ width: widthIcon, height: heightIcon }}
-          className="flex items-center justify-center"
+          className="flex items-center justify-center w-fit h-fit"
         >
-          {icon}
+          {!hovered ? (
+            <div className="h-4 w-4">{icon}</div>
+          ) : (
+            <div className="h-4 w-32 text-center align-middle justify-center"
+            style = {{
+              fontSize: "0.7em",
+              fontWeight: "semibold",
+
+            }}>{title}</div>
+          )}
         </motion.div>
       </motion.div>
     </Link>

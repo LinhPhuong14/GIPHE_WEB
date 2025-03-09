@@ -61,7 +61,7 @@ export function LandingHero() {
           >
             <BackgroundGradient className="rounded-[22px] p-0.5 bg-gradient-to-r from-purple-500 to-pink-500">
               <Link href="/login">
-                <button className="px-8 py-2 rounded-full relative bg-slate-700 text-white text-sm hover:shadow-2xl hover:shadow-white/[0.1] transition duration-200 border border-slate-600">
+                <button className="px-8 py-2 rounded-full relative bg-slate-700 text-white text-sm hover:shadow-2xl ">
                   <div className="absolute inset-x-0 h-px w-1/2 mx-auto -top-px shadow-2xl  bg-gradient-to-r from-transparent via-teal-500 to-transparent" />
                   <span className="relative z-20">Get Started</span>
                 </button>
