@@ -64,7 +64,7 @@ function DashboardSidebar({
   ];
   
   return (
-    <div className="w-full h-full fixed top-0 left-0 z-20">
+    <div className=" h-full fixed top-0 left-0 z-20">
       <Sidebar open={isOpen} setOpen={setIsOpen}>
         <SidebarBody className="justify-between top-50 gap-20">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">

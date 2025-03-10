@@ -13,7 +13,7 @@ const courses = [
     id: 1,
     title: "Introduction to Web Development",
     description: "Learn the basics of HTML, CSS, and JavaScript.",
-    image: "",
+    
     progress: 75,
     category: "Development",
     duration: "8 hours",
@@ -22,7 +22,7 @@ const courses = [
     id: 2,
     title: "Data Science Fundamentals",
     description: "Master the core concepts of data science and analytics.",
-    image: "",
+    
     progress: 45,
     category: "Data Science",
     duration: "12 hours",
@@ -31,7 +31,7 @@ const courses = [
     id: 3,
     title: "UX/UI Design Principles",
     description: "Create beautiful and functional user interfaces.",
-    image: "",
+    
     progress: 20,
     category: "Design",
     duration: "10 hours",
@@ -40,7 +40,7 @@ const courses = [
     id: 4,
     title: "Advanced React Development",
     description: "Take your React skills to the next level.",
-    image: "",
+    
     progress: 0,
     category: "Development",
     duration: "15 hours",
@@ -49,7 +49,7 @@ const courses = [
     id: 5,
     title: "Machine Learning Basics",
     description: "Introduction to machine learning algorithms and applications.",
-    image: "",
+    
     progress: 10,
     category: "Data Science",
     duration: "20 hours",
@@ -58,7 +58,7 @@ const courses = [
     id: 6,
     title: "Digital Marketing Strategies",
     description: "Learn effective digital marketing techniques for business growth.",
-    image: "",
+    
     progress: 0,
     category: "Marketing",
     duration: "8 hours",
@@ -67,7 +67,7 @@ const courses = [
 
 export function CourseGrid() {
   return (
-    <div>
+    <div className="flex w-full flex-col h-full mt-6 mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold">My Courses</h2>
         <Button variant="outline">View All</Button>
@@ -82,11 +82,6 @@ export function CourseGrid() {
           >
             <Card className="overflow-hidden h-full flex flex-col">
               <div className="aspect-video w-full overflow-hidden">
-                <Image
-                  src={course.image || ""}
-                  alt={course.title}
-                  className="object-cover w-full h-full transition-transform hover:scale-105"
-                />
               </div>
               <CardHeader className="p-4">
                 <div className="flex justify-between items-start">
