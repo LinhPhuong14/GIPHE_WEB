@@ -31,7 +31,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
         .map((name) => name.substring(0, 1))
         .join("")
     : "";
-
+  
   return (
     <div className="flex items-center justify-between p-4">
       <ModeToggle />

@@ -4,8 +4,14 @@ import React, { useState } from 'react';
 import {
   IconArrowLeft,
   IconBrandTabler,
+  IconCalendar,
+  IconClock,
+  IconHome,
+  IconNote,
+  IconReport,
   IconSettings,
   IconUserBolt,
+  IconWriting,
 } from "@tabler/icons-react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 
@@ -13,37 +19,51 @@ function DashboardSidebar() {
     const links = [
     {
       label: "Dashboard",
-      href: "#",
+      href: "/dashboard",
       icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+        <IconHome className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
       ),
     },
     {
-      label: "Profile",
+      label: "My Learning",
       href: "#",
       icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+        <IconNote className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
       ),
     },
     {
-      label: "Settings",
+      label: "My Notes",
       href: "#",
       icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+        <IconWriting className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
       ),
     },
     {
-      label: "Logout",
+      label: "My Schedule",
       href: "#",
       icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+        <IconCalendar className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
       ),
     },
+    {
+      label: "Pomodoro",
+      href: "/dashboard/pomodoro",
+      icon: (
+          <IconClock className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+      )
+    },{
+      label: "Detail Reports",
+      href: "/dashboard/reports",
+      icon: (
+          <IconReport className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+      )
+    }
   ];
   const [open, setOpen] = useState(false);
   return (
-    <div><Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
+    <div className='w-full h-full fixed top-0 left-0 z-20'
+    ><Sidebar open={open} setOpen={setOpen}>
+        <SidebarBody className="justify-between top-50 gap-20">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
@@ -68,7 +88,7 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Acet Labs
+        GIPHE Learning
       </motion.span>
     </Link>
   );
@@ -76,7 +96,7 @@ export const Logo = () => {
 export const LogoIcon = () => {
   return (
     <Link
-      href="#"
+      href="/dashboard"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm shrink-0" />
