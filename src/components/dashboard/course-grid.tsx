@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Play } from "lucide-react"
+import Image from "next/image"
 
 const courses = [
   {
@@ -57,7 +58,7 @@ const courses = [
     id: 6,
     title: "Digital Marketing Strategies",
     description: "Learn effective digital marketing techniques for business growth.",
-    image: "/placeholder.svg?height=200&width=400",
+    image: "",
     progress: 0,
     category: "Marketing",
     duration: "8 hours",
@@ -81,7 +82,7 @@ export function CourseGrid() {
           >
             <Card className="overflow-hidden h-full flex flex-col">
               <div className="aspect-video w-full overflow-hidden">
-                <img
+                <Image
                   src={course.image || ""}
                   alt={course.title}
                   className="object-cover w-full h-full transition-transform hover:scale-105"

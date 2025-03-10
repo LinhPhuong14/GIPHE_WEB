@@ -245,7 +245,6 @@ export default function StudentDashboard() {
       <div className="flex flex-col items-center justify-between px-4 py-2 w-full">
         <div className="flex flex-1">
           <DashboardHeader user={{ name: "John Doe", image: "" }} />
-          
         </div>
 
         <div className="flex flex-1">
@@ -293,255 +292,170 @@ const Dashboard = () => {
     certificatesEarned: 3,
   };
   return (
-    //     <div className="flex flex-1 flex-col gap-8 p-6 bg-gray-100">
-    //   {/* Dashboard Stats */}
-    //   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-    //     {/* Courses Progress */}
-    //     <Card className="shadow-md border rounded-lg bg-white p-5">
-    //       <CardHeader className="flex flex-row items-center justify-between pb-2">
-    //         <CardTitle className="text-sm font-semibold text-gray-700">Courses Progress</CardTitle>
-    //       </CardHeader>
-    //       <CardContent>
-    //         <div className="text-2xl font-bold text-gray-900">
-    //           {stats.coursesCompleted}/{stats.totalCourses}
-    //         </div>
-    //         <p className="text-xs text-gray-500">Courses completed</p>
-    //         <Progress value={(stats.coursesCompleted / stats.totalCourses) * 100} className="h-2 mt-3" />
-    //       </CardContent>
-    //     </Card>
-
-    //     {/* Learning Time */}
-    //     <Card className="shadow-md border rounded-lg bg-white p-5">
-    //       <CardHeader className="flex flex-row items-center justify-between pb-2">
-    //         <CardTitle className="text-sm font-semibold text-gray-700">Learning Time</CardTitle>
-    //         <Clock className="h-4 w-4 text-gray-500" />
-    //       </CardHeader>
-    //       <CardContent>
-    //         <div className="text-2xl font-bold text-gray-900">{stats.hoursSpent} hrs</div>
-    //         <p className="text-xs text-gray-500">Total learning time</p>
-    //         <div className="mt-3 text-xs text-gray-500">
-    //           <span className="text-green-500 font-medium">↑ 12%</span> from last month
-    //         </div>
-    //       </CardContent>
-    //     </Card>
-
-    //     {/* Achievements */}
-    //     <Card className="shadow-md border rounded-lg bg-white p-5">
-    //       <CardHeader className="flex flex-row items-center justify-between pb-2">
-    //         <CardTitle className="text-sm font-semibold text-gray-700">Achievements</CardTitle>
-    //         <Trophy className="h-4 w-4 text-gray-500" />
-    //       </CardHeader>
-    //       <CardContent>
-    //         <div className="text-2xl font-bold text-gray-900">{stats.certificatesEarned}</div>
-    //         <p className="text-xs text-gray-500">Certificates earned</p>
-    //         <div className="mt-3 text-xs text-gray-500">
-    //           <span className="text-primary font-medium">{stats.learningStreak} day</span> learning streak
-    //         </div>
-    //       </CardContent>
-    //     </Card>
-    //   </div>
-
-    //   {/* Recommended Courses */}
-    //   <div>
-    //     <h2 className="text-2xl font-bold text-gray-800 mb-4">Recommended For You</h2>
-    //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    //       {[
-    //         {
-    //           title: "Advanced React Patterns",
-    //           description: "Master advanced React techniques and patterns",
-    //           duration: "15 hours",
-    //           level: "Intermediate",
-    //           image: "",
-    //         },
-    //         {
-    //           title: "Data Visualization with D3.js",
-    //           description: "Create interactive data visualizations for the web",
-    //           duration: "12 hours",
-    //           level: "Intermediate",
-    //           image: "",
-    //         },
-    //         {
-    //           title: "Machine Learning Fundamentals",
-    //           description: "Learn the basics of machine learning algorithms and applications",
-    //           duration: "20 hours",
-    //           level: "Beginner",
-    //           image: "",
-    //         },
-    //       ].map((course, index) => (
-    //         <Card key={index} className="overflow-hidden shadow-md border rounded-lg bg-white transition-transform hover:shadow-xl hover:scale-105">
-    //           <div className="aspect-video w-full overflow-hidden">
-    //             <Image src={course.image} alt={course.title} className="object-cover w-full h-full transition-transform hover:scale-105" />
-    //           </div>
-    //           <CardHeader className="p-4">
-    //             <CardTitle className="text-lg font-semibold text-gray-800">{course.title}</CardTitle>
-    //             <CardDescription className="text-sm text-gray-600">{course.description}</CardDescription>
-    //           </CardHeader>
-    //           <CardContent className="p-4 pt-0 flex items-center justify-between text-sm text-gray-600">
-    //             <div className="flex items-center gap-1">
-    //               <Clock className="h-4 w-4 text-gray-500" />
-    //               <span>{course.duration}</span>
-    //             </div>
-    //             <div className="flex items-center gap-1">
-    //               <GraduationCap className="h-4 w-4 text-gray-500" />
-    //               <span>{course.level}</span>
-    //             </div>
-    //           </CardContent>
-    //         </Card>
-    //       ))}
-    //     </div>
-    //   </div>
-
-    //   {/* Recent Activity */}
-    //   <div>
-    //     <h2 className="text-2xl font-bold text-gray-800 mb-4">Recent Activity</h2>
-    //     <Card className="shadow-md border rounded-lg bg-white p-5">
-    //       <CardHeader>
-    //         <CardTitle className="text-lg font-semibold text-gray-800">Learning Progress</CardTitle>
-    //         <CardDescription className="text-sm text-gray-600">Your learning activity over the past week</CardDescription>
-    //       </CardHeader>
-    //       <CardContent>
-    //         <div className="h-[200px] flex items-end justify-between gap-2">
-    //           {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, i) => {
-    //             const height = Math.floor(Math.random() * 100) + 20;
-    //             return (
-    //               <div key={day} className="flex flex-col items-center gap-2">
-    //                 <div className="bg-blue-500 rounded-t-md w-10" style={{ height: `${height}px`, transition: "height 0.3s ease" }}></div>
-    //                 <span className="text-sm text-gray-700">{day}</span>
-    //                 <span className="text-xs text-gray-500">{Math.floor(height / 20)}h</span>
-    //               </div>
-    //             );
-    //           })}
-    //         </div>
-    //       </CardContent>
-    //     </Card>
-    //   </div>
-
-    //   {/* My Courses */}
-    //   <CourseGrid />
-    // </div>
-    <div className="flex flex-col space-y-6 p-6">
-      {/* Thống kê tiến độ học tập */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="shadow-lg rounded-lg p-4">
-          <CardHeader className="flex items-center justify-between pb-2">
-            <CardTitle className="text-sm font-semibold">
-              Courses Progress
-            </CardTitle>
-            <GraduationCap className="h-5 w-5 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {stats.coursesCompleted}/{stats.totalCourses}
-            </div>
-            <p className="text-xs text-muted-foreground">Courses completed</p>
-            <Progress
-              value={(stats.coursesCompleted / stats.totalCourses) * 100}
-              className="h-2 mt-3"
-            />
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-lg rounded-lg p-4">
-          <CardHeader className="flex items-center justify-between pb-2">
-            <CardTitle className="text-sm font-semibold">
-              Learning Time
-            </CardTitle>
-            <Clock className="h-5 w-5 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.hoursSpent} hrs</div>
-            <p className="text-xs text-muted-foreground">Total learning time</p>
-            <div className="mt-3 text-xs text-muted-foreground">
-              <span className="text-green-500 font-medium">↑ 12%</span> from
-              last month
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-lg rounded-lg p-4">
-          <CardHeader className="flex items-center justify-between pb-2">
-            <CardTitle className="text-sm font-semibold">
-              Achievements
-            </CardTitle>
-            <Trophy className="h-5 w-5 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.certificatesEarned}</div>
-            <p className="text-xs text-muted-foreground">Certificates earned</p>
-            <div className="mt-3 text-xs text-muted-foreground">
-              <span className="text-primary font-medium">
-                {stats.learningStreak} day
-              </span>{" "}
-              learning streak
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Khóa học đề xuất */}
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Recommended For You</h2>
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {recommendedCourses.map((course, index) => (
-        <Card key={index} className="shadow-md overflow-hidden transition-transform hover:scale-[1.02]">
-          <div className="aspect-video w-full overflow-hidden bg-gray-200">
-            <Image
-              src={course.image || "/placeholder.jpg"}
-              alt={course.title}
-              className="object-cover w-full h-full transition-transform hover:scale-105"
-            />
-          </div>
-          <CardHeader className="p-4">
-            <CardTitle className="text-lg">{course.title}</CardTitle>
-            <CardDescription>{course.description}</CardDescription>
-          </CardHeader>
-          <CardContent className="p-4 pt-0">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-1">
-                <Clock className="h-4 w-4 text-muted-foreground" />
-                <span>{course.duration}</span>
+    <div className="h-screen w-full overflow-y-auto">
+      <div className="container mx-auto bottom-[50px] my-6 space-y-5">
+        {/* Dashboard Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Courses Progress */}
+          <Card className="dark:bg-black shadow-md border rounded-lg bg-white">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="dark:text-white text-sm font-semibold text-gray-700">
+                Courses Progress
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl dark:text-white font-bold text-gray-900">
+                {stats.coursesCompleted}/{stats.totalCourses}
               </div>
-              <div className="flex items-center gap-1">
-                <GraduationCap className="h-4 w-4 text-muted-foreground" />
-                <span>{course.level}</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div> */}
-      </div>
+              <p className="text-xs text-gray-500">Courses completed</p>
+              <Progress
+                value={(stats.coursesCompleted / stats.totalCourses) * 100}
+                className="h-2 mt-3"
+              />
+            </CardContent>
+          </Card>
 
-      {/* Recent Activity */}
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Recent Activity</h2>
-        <Card className="shadow-md p-4">
-          <CardHeader>
-            <CardTitle>Learning Progress</CardTitle>
-            <CardDescription>
-              Your learning activity over the past week
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="h-[200px] flex items-end justify-between">
-            {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, i) => {
-              const height = Math.floor(Math.random() * 100) + 20;
-              return (
-                <div key={day} className="flex flex-col items-center gap-2">
-                  <div
-                    className="bg-primary rounded-t-md w-10 transition-all duration-300"
-                    style={{ height: `${height}px` }}
-                  ></div>
-                  <span className="text-sm">{day}</span>
-                  <span className="text-xs text-muted-foreground">
-                    {Math.floor(height / 20)}h
-                  </span>
+          {/* Learning Time */}
+          <Card className="dark:bg-black shadow-md border rounded-lg bg-white">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="dark:text-white text-sm font-semibold text-gray-700">
+                Learning Time
+              </CardTitle>
+              <Clock className="h-4 w-4 text-gray-500" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl dark:text-white font-bold text-gray-900">
+                {stats.hoursSpent} hrs
+              </div>
+              <p className="text-xs dark:text-white text-gray-500">Total learning time</p>
+              <div className="mt-3 text-xs text-gray-500">
+                <span className="text-green-500 font-medium">↑ 12%</span> from
+                last month
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Achievements */}
+          <Card className="dark:bg-neutral-800 shadow-md border rounded-lg bg-white">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="dark:text-white text-sm font-semibold text-gray-700">
+                Achievements
+              </CardTitle>
+              <Trophy className="h-4 w-4 text-gray-500" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl dark:text-white font-bold text-gray-900">
+                {stats.certificatesEarned}
+              </div>
+              <p className="text-xs dark:text-white text-gray-500">Certificates earned</p>
+              <div className="mt-3 text-xs text-gray-500">
+                <span className="text-primary font-medium">
+                  {stats.learningStreak} day
+                </span>{" "}
+                learning streak
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Recommended Courses */}
+        <div>
+          <h2 className="text-2xl dark:text-white font-bold text-gray-800 mb-4">
+            Recommended For You
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Advanced React Patterns",
+                description: "Master advanced React techniques and patterns",
+                duration: "15 hours",
+                level: "Intermediate",
+                image: "/placeholder.svg?height=200&width=400",
+              },
+              {
+                title: "Data Visualization with D3.js",
+                description:
+                  "Create interactive data visualizations for the web",
+                duration: "12 hours",
+                level: "Intermediate",
+                image: "/placeholder.svg?height=200&width=400",
+              },
+              {
+                title: "Machine Learning Fundamentals",
+                description:
+                  "Learn the basics of machine learning algorithms and applications",
+                duration: "20 hours",
+                level: "Beginner",
+                image: "/placeholder.svg?height=200&width=400",
+              },
+            ].map((course, index) => (
+              <Card
+                key={index}
+                className="overflow-hidden shadow-md border rounded-lg bg-white transition-transform hover:shadow-xl hover:scale-105"
+              >
+                <div className="aspect-video w-full overflow-hidden">
+                  <Image
+                    src={course.image || "/placeholder.svg"}
+                    alt={course.title}
+                    width={400}
+                    height={200}
+                    className="object-cover w-full h-full transition-transform hover:scale-105"
+                  />
                 </div>
-              );
-            })}
-          </CardContent>
-        </Card>
+                <CardHeader className="p-4">
+                  <CardTitle className="text-lg font-semibold text-gray-800">
+                    {course.title}
+                  </CardTitle>
+                  <CardDescription className="text-sm text-gray-600">
+                    {course.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-4 pt-0 flex items-center justify-between text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Clock className="h-4 w-4 text-gray-500" />
+                    <span>{course.duration}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <GraduationCap className="h-4 w-4 text-gray-500" />
+                    <span>{course.level}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+        {/* Recent Activity */}
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Recent Activity</h2>
+          <Card className="shadow-md p-4">
+            <CardHeader>
+              <CardTitle>Learning Progress</CardTitle>
+              <CardDescription>
+                Your learning activity over the past week
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="h-[200px] flex items-end justify-between">
+              {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                (day, i) => {
+                  const height = Math.floor(Math.random() * 100) + 20;
+                  return (
+                    <div key={day} className="flex flex-col items-center gap-2">
+                      <div
+                        className="bg-primary rounded-t-md w-10 transition-all duration-300"
+                        style={{ height: `${height}px` }}
+                      ></div>
+                      <span className="text-sm">{day}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {Math.floor(height / 20)}h
+                      </span>
+                    </div>
+                  );
+                }
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </div>
-
       {/* My Courses */}
       <CourseGrid />
     </div>

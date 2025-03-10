@@ -157,13 +157,13 @@ export default function Profile() {
                 <CardHeader className="text-center">
                   <div className="flex justify-center mb-4">
                     <Avatar className="h-24 w-24">
-                      {/* <AvatarImage
+                      <AvatarImage
                         src={
                           session?.user?.image ||
-                          "/placeholder.svg?height=96&width=96"
+                          ""
                         }
                         alt={profile.name}
-                      /> */}
+                      />
                       <AvatarFallback>
                         {profile.name
                           .split(" ")
