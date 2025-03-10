@@ -1,22 +1,24 @@
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import React, { useState } from 'react';
+import { motion } from "framer-motion";
+import Link from "next/link";
+import React, { useState } from "react";
 import {
-  IconArrowLeft,
-  IconBrandTabler,
   IconCalendar,
   IconClock,
   IconHome,
   IconNote,
   IconReport,
-  IconSettings,
-  IconUserBolt,
   IconWriting,
 } from "@tabler/icons-react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 
-function DashboardSidebar() {
-    const links = [
+function DashboardSidebar({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}) {
+  const links = [
     {
       label: "Dashboard",
       href: "/dashboard",
@@ -49,23 +51,24 @@ function DashboardSidebar() {
       label: "Pomodoro",
       href: "/dashboard/pomodoro",
       icon: (
-          <IconClock className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      )
-    },{
+        <IconClock className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+      ),
+    },
+    {
       label: "Detail Reports",
       href: "/dashboard/reports",
       icon: (
-          <IconReport className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      )
-    }
+        <IconReport className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+      ),
+    },
   ];
-  const [open, setOpen] = useState(false);
+  
   return (
-    <div className='w-full h-full fixed top-0 left-0 z-20'
-    ><Sidebar open={open} setOpen={setOpen}>
+    <div className="w-full h-full fixed top-0 left-0 z-20">
+      <Sidebar open={isOpen} setOpen={setIsOpen}>
         <SidebarBody className="justify-between top-50 gap-20">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-            {open ? <Logo /> : <LogoIcon />}
+            {isOpen ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
@@ -73,8 +76,9 @@ function DashboardSidebar() {
             </div>
           </div>
         </SidebarBody>
-      </Sidebar></div>
-  )
+      </Sidebar>
+    </div>
+  );
 }
 export const Logo = () => {
   return (
@@ -104,4 +108,4 @@ export const LogoIcon = () => {
   );
 };
 
-export default DashboardSidebar
+export default DashboardSidebar;
