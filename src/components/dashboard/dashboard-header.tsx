@@ -42,10 +42,10 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Avatar className="border">
+            {/* <Avatar className="border">
               <Image src={user.image} alt={user.name} />
               <AvatarFallback>{initials}</AvatarFallback>
-            </Avatar>
+            </Avatar> */}
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>Profile</DropdownMenuLabel>

@@ -43,7 +43,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { DashboardHeader } from "@/components/dashboard/dashboard-header";
 import React from "react";
-import { links } from "@/data/link";
+import { links } from "@/models/link";
 
 export default function Profile() {
   const router = useRouter();
