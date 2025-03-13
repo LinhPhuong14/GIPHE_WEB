@@ -73,6 +73,94 @@ export function Pomodoro() {
   const [completedSessions, setCompletedSessions] = useState(0);
   const [totalCompletedToday, setTotalCompletedToday] = useState(0);
 
+  // Settings state
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS)
+  const [tempSettings, setTempSettings] = useState(DEFAULT_SETTINGS)
+
+  // History state
+  const [history, setHistory] = useState(mockHistory)
+
+  // Refs
+  const timerRef = useRef(null)
+  const audioRef = useRef(null)
+
+  // Timer logic
+  useEffect(() => {
+    if (isRunning) {
+      timerRef.current = setInterval(() => {
+        setTimeRemaining((prev) => {
+          if (prev <= 1) {
+            clearInterval(timerRef.current)
+            handleTimerComplete()
+            return 0
+          }
+          return prev - 1
+        })
+      }, 1000)
+    } else if (timerRef.current) {
+      clearInterval(timerRef.current)
+    }
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current)
+      }
+    }
+  }, [isRunning])
+
+
+  const handleStartPause = () => {
+    setIsRunning(!isRunning)
+
+    if (!isRunning) {
+      toast({
+        title: timerMode === "work" ? "Focus time started" : "Break time started",
+        description: "Stay focused and productive!",
+      })
+    }
+  }
+
+  const handleReset = () => {
+    setIsRunning(false)
+
+    if (timerMode === "work") {
+      setTimeRemaining(settings.workDuration * 60)
+    } else if (timerMode === "shortBreak") {
+      setTimeRemaining(settings.shortBreakDuration * 60)
+    } else {
+      setTimeRemaining(settings.longBreakDuration * 60)
+    }
+
+    toast({
+      title: "Timer reset",
+      description: "The timer has been reset.",
+    })
+  }
+
+  const handleSkip = () => {
+    setIsRunning(false)
+
+    if (timerMode === "work") {
+      // Skip to break without counting as completed
+      if (completedSessions % settings.sessionsBeforeLongBreak === settings.sessionsBeforeLongBreak - 1) {
+        setTimerMode("longBreak")
+        setTimeRemaining(settings.longBreakDuration * 60)
+      } else {
+        setTimerMode("shortBreak")
+        setTimeRemaining(settings.shortBreakDuration * 60)
+      }
+    } else {
+      // Skip break, back to work
+      setTimerMode("work")
+      setTimeRemaining(settings.workDuration * 60)
+    }
+
+    toast({
+      title: "Timer skipped",
+      description: `Skipped to ${timerMode === "work" ? "break" : "work"} time.`,
+    })
+  }
+
   
   if (isLoading || status === "loading") {
     return (
