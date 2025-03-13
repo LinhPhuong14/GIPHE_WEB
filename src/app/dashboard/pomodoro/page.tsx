@@ -83,6 +83,8 @@ export function Pomodoro() {
   const timerRef = useRef(null);
   const audioRef = useRef(null);
 
+  
+
   // Timer logic
   useEffect(() => {
     if (isRunning) {
@@ -107,6 +109,76 @@ export function Pomodoro() {
     };
   }, [isRunning]);
 
+  const handleTimerComplete = () => {
+    playSound()
+    showNotification()
+
+    if (timerMode === "work") {
+      // Increment completed sessions
+      const newCompletedSessions = completedSessions + 1
+      setCompletedSessions(newCompletedSessions)
+      setTotalCompletedToday((prev) => prev + 1)
+
+      // Update history
+      updateHistory()
+
+      // Determine if it's time for a long break
+      if (newCompletedSessions % settings.sessionsBeforeLongBreak === 0) {
+        setTimerMode("longBreak")
+        setTimeRemaining(settings.longBreakDuration * 60)
+        toast({
+          title: "Time for a long break!",
+          description: `You've completed ${newCompletedSessions} pomodoro sessions.`,
+        })
+      } else {
+        setTimerMode("shortBreak")
+        setTimeRemaining(settings.shortBreakDuration * 60)
+        toast({
+          title: "Time for a short break!",
+          description: "Good job completing your pomodoro session.",
+        })
+      }
+
+      // Auto-start break if enabled
+      setIsRunning(settings.autoStartBreaks)
+    } else {
+      // Break is over, back to work
+      setTimerMode("work")
+      setTimeRemaining(settings.workDuration * 60)
+      toast({
+        title: "Break time is over!",
+        description: "Time to get back to work.",
+      })
+
+      // Auto-start work if enabled
+      setIsRunning(settings.autoStartPomodoros)
+    }
+  }
+
+  const updateHistory = () => {
+    const today = new Date().toISOString().split("T")[0]
+    const updatedHistory = [...history]
+    const todayIndex = updatedHistory.findIndex((day) => day.date === today)
+
+    if (todayIndex >= 0) {
+      // Update existing entry
+      updatedHistory[todayIndex] = {
+        ...updatedHistory[todayIndex],
+        completedPomodoros: updatedHistory[todayIndex].completedPomodoros + 1,
+        totalWorkTime: updatedHistory[todayIndex].totalWorkTime + settings.workDuration,
+      }
+    } else {
+      // Add new entry for today
+      updatedHistory.unshift({
+        date: today,
+        completedPomodoros: 1,
+        totalWorkTime: settings.workDuration,
+      })
+    }
+
+    setHistory(updatedHistory)
+  }
+
     const playSound = () => {
     if (settings.soundEnabled && audioRef.current) {
       audioRef.current.play().catch((error) => {
@@ -127,6 +199,7 @@ export function Pomodoro() {
       }
     }
   }
+
   const handleStartPause = () => {
     setIsRunning(!isRunning);
 
