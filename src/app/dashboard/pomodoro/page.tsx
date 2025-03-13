@@ -107,6 +107,26 @@ export function Pomodoro() {
     };
   }, [isRunning]);
 
+    const playSound = () => {
+    if (settings.soundEnabled && audioRef.current) {
+      audioRef.current.play().catch((error) => {
+        console.error("Error playing sound:", error)
+      })
+    }
+  }
+
+  const showNotification = () => {
+    if (settings.notificationsEnabled && "Notification" in window) {
+      if (Notification.permission === "granted") {
+        const title = timerMode === "work" ? "Pomodoro Complete!" : "Break Time Over!"
+        const body = timerMode === "work" ? "Time to take a break!" : "Time to get back to work!"
+
+        new Notification(title, { body })
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission()
+      }
+    }
+  }
   const handleStartPause = () => {
     setIsRunning(!isRunning);
 
