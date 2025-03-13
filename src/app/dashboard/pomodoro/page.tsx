@@ -184,6 +184,18 @@ export function Pomodoro() {
       description: "Your pomodoro settings have been updated.",
     });
   };
+  const handleChangeTimerMode = (mode) => {
+    setIsRunning(false)
+    setTimerMode(mode)
+
+    if (mode === "work") {
+      setTimeRemaining(settings.workDuration * 60)
+    } else if (mode === "shortBreak") {
+      setTimeRemaining(settings.shortBreakDuration * 60)
+    } else {
+      setTimeRemaining(settings.longBreakDuration * 60)
+    }
+  }
 
   const handleResetSettings = () => {
     setTempSettings(DEFAULT_SETTINGS);
@@ -201,6 +213,18 @@ export function Pomodoro() {
       .toString()
       .padStart(2, "0")}`;
   };
+   const getTimerProgress = () => {
+    let totalSeconds
+    if (timerMode === "work") {
+      totalSeconds = settings.workDuration * 60
+    } else if (timerMode === "shortBreak") {
+      totalSeconds = settings.shortBreakDuration * 60
+    } else {
+      totalSeconds = settings.longBreakDuration * 60
+    }
+
+    return ((totalSeconds - timeRemaining) / totalSeconds) * 100
+  }
 
   if (isLoading || status === "loading") {
     return (
