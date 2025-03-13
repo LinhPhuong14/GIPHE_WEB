@@ -160,8 +160,43 @@ export function Pomodoro() {
       description: `Skipped to ${timerMode === "work" ? "break" : "work"} time.`,
     })
   }
+const handleSaveSettings = () => {
+    setSettings(tempSettings)
+    localStorage.setItem("pomodoroSettings", JSON.stringify(tempSettings))
 
-  
+    // Update current timer based on new settings
+    if (timerMode === "work") {
+      setTimeRemaining(tempSettings.workDuration * 60)
+    } else if (timerMode === "shortBreak") {
+      setTimeRemaining(tempSettings.shortBreakDuration * 60)
+    } else {
+      setTimeRemaining(tempSettings.longBreakDuration * 60)
+    }
+
+    setActiveTab("timer")
+
+    toast({
+      title: "Settings saved",
+      description: "Your pomodoro settings have been updated.",
+    })
+  }
+
+  const handleResetSettings = () => {
+    setTempSettings(DEFAULT_SETTINGS)
+
+    toast({
+      title: "Settings reset",
+      description: "Settings have been reset to default values.",
+    })
+  }
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
+  }
+
+
   if (isLoading || status === "loading") {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -242,6 +277,36 @@ export function Pomodoro() {
                     </div>
                   </CardHeader>
                   </Card>
+                  <Card className="max-w-md mx-auto">
+                  <CardHeader>
+                    <CardTitle>Today's Progress</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                        <span>Completed Pomodoros</span>
+                      </div>
+                      <span className="font-bold">{totalCompletedToday}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-5 w-5 text-blue-500" />
+                        <span>Total Focus Time</span>
+                      </div>
+                      <span className="font-bold">{totalCompletedToday * settings.workDuration} min</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <BarChart className="h-5 w-5 text-purple-500" />
+                        <span>Current Session</span>
+                      </div>
+                      <span className="font-bold">{completedSessions + 1}</span>
+                    </div>
+                  </CardContent>
+                </Card>
             </Tabs>
           </div>
         </div>
