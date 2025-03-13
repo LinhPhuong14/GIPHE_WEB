@@ -83,7 +83,31 @@ export function Pomodoro() {
   const timerRef = useRef(null);
   const audioRef = useRef(null);
 
-  
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login")
+    } else if (status !== "loading") {
+      setIsLoading(false)
+
+      // Load settings from localStorage if available
+      const savedSettings = localStorage.getItem("pomodoroSettings")
+      if (savedSettings) {
+        const parsedSettings = JSON.parse(savedSettings)
+        setSettings(parsedSettings)
+        setTempSettings(parsedSettings)
+
+        // Initialize timer with work duration from settings
+        setTimeRemaining(parsedSettings.workDuration * 60)
+      }
+
+      // Load today's completed pomodoros
+      const today = new Date().toISOString().split("T")[0]
+      const todayStats = history.find((day) => day.date === today)
+      if (todayStats) {
+        setTotalCompletedToday(todayStats.completedPomodoros)
+      }
+    }
+  }, [status, router])
 
   // Timer logic
   useEffect(() => {
