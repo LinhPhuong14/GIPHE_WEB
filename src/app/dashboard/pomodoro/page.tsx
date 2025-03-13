@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react"
+import { useRouter } from "next/navigation"
 import {
   Card,
   CardContent,
@@ -19,6 +20,42 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import DashboardSidebar from "@/components/dashboard/dashboard-sidebar";
 import { DashboardHeader } from "@/components/dashboard/dashboard-header";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  Play,
+  Pause,
+  SkipForward,
+  Settings,
+  Volume2,
+  VolumeX,
+  RotateCw,
+  Clock,
+  Calendar,
+  BarChart,
+  CheckCircle,
+} from "lucide-react"
+
+
+const mockHistory = [
+  { date: "2023-04-15", completedPomodoros: 8, totalWorkTime: 200 },
+  { date: "2023-04-14", completedPomodoros: 6, totalWorkTime: 150 },
+  { date: "2023-04-13", completedPomodoros: 10, totalWorkTime: 250 },
+  { date: "2023-04-12", completedPomodoros: 4, totalWorkTime: 100 },
+  { date: "2023-04-11", completedPomodoros: 7, totalWorkTime: 175 },
+  { date: "2023-04-10", completedPomodoros: 5, totalWorkTime: 125 },
+  { date: "2023-04-09", completedPomodoros: 9, totalWorkTime: 225 },
+]
+
+// Default Pomodoro settings
+const DEFAULT_SETTINGS = {
+  workDuration: 25, // minutes
+  shortBreakDuration: 5, // minutes
+  longBreakDuration: 15, // minutes
+  sessionsBeforeLongBreak: 4,
+  autoStartBreaks: true,
+  autoStartPomodoros: false,
+  soundEnabled: true,
+  notificationsEnabled: true,
+}
 
 export function Pomodoro() {
   const router = useRouter();
@@ -36,6 +73,7 @@ export function Pomodoro() {
   const [completedSessions, setCompletedSessions] = useState(0);
   const [totalCompletedToday, setTotalCompletedToday] = useState(0);
 
+  
   if (isLoading || status === "loading") {
     return (
       <div className="flex items-center justify-center min-h-screen">
