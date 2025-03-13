@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -32,8 +32,7 @@ import {
   Calendar,
   BarChart,
   CheckCircle,
-} from "lucide-react"
-
+} from "lucide-react";
 
 const mockHistory = [
   { date: "2023-04-15", completedPomodoros: 8, totalWorkTime: 200 },
@@ -43,7 +42,7 @@ const mockHistory = [
   { date: "2023-04-11", completedPomodoros: 7, totalWorkTime: 175 },
   { date: "2023-04-10", completedPomodoros: 5, totalWorkTime: 125 },
   { date: "2023-04-09", completedPomodoros: 9, totalWorkTime: 225 },
-]
+];
 
 // Default Pomodoro settings
 const DEFAULT_SETTINGS = {
@@ -55,7 +54,7 @@ const DEFAULT_SETTINGS = {
   autoStartPomodoros: false,
   soundEnabled: true,
   notificationsEnabled: true,
-}
+};
 
 export function Pomodoro() {
   const router = useRouter();
@@ -74,15 +73,15 @@ export function Pomodoro() {
   const [totalCompletedToday, setTotalCompletedToday] = useState(0);
 
   // Settings state
-  const [settings, setSettings] = useState(DEFAULT_SETTINGS)
-  const [tempSettings, setTempSettings] = useState(DEFAULT_SETTINGS)
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
+  const [tempSettings, setTempSettings] = useState(DEFAULT_SETTINGS);
 
   // History state
-  const [history, setHistory] = useState(mockHistory)
+  const [history, setHistory] = useState(mockHistory);
 
   // Refs
-  const timerRef = useRef(null)
-  const audioRef = useRef(null)
+  const timerRef = useRef(null);
+  const audioRef = useRef(null);
 
   // Timer logic
   useEffect(() => {
@@ -90,112 +89,118 @@ export function Pomodoro() {
       timerRef.current = setInterval(() => {
         setTimeRemaining((prev) => {
           if (prev <= 1) {
-            clearInterval(timerRef.current)
-            handleTimerComplete()
-            return 0
+            clearInterval(timerRef.current);
+            handleTimerComplete();
+            return 0;
           }
-          return prev - 1
-        })
-      }, 1000)
+          return prev - 1;
+        });
+      }, 1000);
     } else if (timerRef.current) {
-      clearInterval(timerRef.current)
+      clearInterval(timerRef.current);
     }
 
     return () => {
       if (timerRef.current) {
-        clearInterval(timerRef.current)
+        clearInterval(timerRef.current);
       }
-    }
-  }, [isRunning])
-
+    };
+  }, [isRunning]);
 
   const handleStartPause = () => {
-    setIsRunning(!isRunning)
+    setIsRunning(!isRunning);
 
     if (!isRunning) {
       toast({
-        title: timerMode === "work" ? "Focus time started" : "Break time started",
+        title:
+          timerMode === "work" ? "Focus time started" : "Break time started",
         description: "Stay focused and productive!",
-      })
+      });
     }
-  }
+  };
 
   const handleReset = () => {
-    setIsRunning(false)
+    setIsRunning(false);
 
     if (timerMode === "work") {
-      setTimeRemaining(settings.workDuration * 60)
+      setTimeRemaining(settings.workDuration * 60);
     } else if (timerMode === "shortBreak") {
-      setTimeRemaining(settings.shortBreakDuration * 60)
+      setTimeRemaining(settings.shortBreakDuration * 60);
     } else {
-      setTimeRemaining(settings.longBreakDuration * 60)
+      setTimeRemaining(settings.longBreakDuration * 60);
     }
 
     toast({
       title: "Timer reset",
       description: "The timer has been reset.",
-    })
-  }
+    });
+  };
 
   const handleSkip = () => {
-    setIsRunning(false)
+    setIsRunning(false);
 
     if (timerMode === "work") {
       // Skip to break without counting as completed
-      if (completedSessions % settings.sessionsBeforeLongBreak === settings.sessionsBeforeLongBreak - 1) {
-        setTimerMode("longBreak")
-        setTimeRemaining(settings.longBreakDuration * 60)
+      if (
+        completedSessions % settings.sessionsBeforeLongBreak ===
+        settings.sessionsBeforeLongBreak - 1
+      ) {
+        setTimerMode("longBreak");
+        setTimeRemaining(settings.longBreakDuration * 60);
       } else {
-        setTimerMode("shortBreak")
-        setTimeRemaining(settings.shortBreakDuration * 60)
+        setTimerMode("shortBreak");
+        setTimeRemaining(settings.shortBreakDuration * 60);
       }
     } else {
       // Skip break, back to work
-      setTimerMode("work")
-      setTimeRemaining(settings.workDuration * 60)
+      setTimerMode("work");
+      setTimeRemaining(settings.workDuration * 60);
     }
 
     toast({
       title: "Timer skipped",
-      description: `Skipped to ${timerMode === "work" ? "break" : "work"} time.`,
-    })
-  }
-const handleSaveSettings = () => {
-    setSettings(tempSettings)
-    localStorage.setItem("pomodoroSettings", JSON.stringify(tempSettings))
+      description: `Skipped to ${
+        timerMode === "work" ? "break" : "work"
+      } time.`,
+    });
+  };
+  const handleSaveSettings = () => {
+    setSettings(tempSettings);
+    localStorage.setItem("pomodoroSettings", JSON.stringify(tempSettings));
 
     // Update current timer based on new settings
     if (timerMode === "work") {
-      setTimeRemaining(tempSettings.workDuration * 60)
+      setTimeRemaining(tempSettings.workDuration * 60);
     } else if (timerMode === "shortBreak") {
-      setTimeRemaining(tempSettings.shortBreakDuration * 60)
+      setTimeRemaining(tempSettings.shortBreakDuration * 60);
     } else {
-      setTimeRemaining(tempSettings.longBreakDuration * 60)
+      setTimeRemaining(tempSettings.longBreakDuration * 60);
     }
 
-    setActiveTab("timer")
+    setActiveTab("timer");
 
     toast({
       title: "Settings saved",
       description: "Your pomodoro settings have been updated.",
-    })
-  }
+    });
+  };
 
   const handleResetSettings = () => {
-    setTempSettings(DEFAULT_SETTINGS)
+    setTempSettings(DEFAULT_SETTINGS);
 
     toast({
       title: "Settings reset",
       description: "Settings have been reset to default values.",
-    })
-  }
+    });
+  };
 
   const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
-  }
-
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
 
   if (isLoading || status === "loading") {
     return (
@@ -227,8 +232,7 @@ const handleSaveSettings = () => {
               <h1 className="text-3xl font-bold">Pomodoro Timer</h1>
             </div>
 
-           
-                   <Tabs
+            <Tabs
               value={activeTab}
               onValueChange={setActiveTab}
               className="space-y-6"
@@ -276,8 +280,8 @@ const handleSaveSettings = () => {
                       </div>
                     </div>
                   </CardHeader>
-                  </Card>
-                  <Card className="max-w-md mx-auto">
+                </Card>
+                <Card className="max-w-md mx-auto">
                   <CardHeader>
                     <CardTitle>Today's Progress</CardTitle>
                   </CardHeader>
@@ -295,7 +299,9 @@ const handleSaveSettings = () => {
                         <Clock className="h-5 w-5 text-blue-500" />
                         <span>Total Focus Time</span>
                       </div>
-                      <span className="font-bold">{totalCompletedToday * settings.workDuration} min</span>
+                      <span className="font-bold">
+                        {totalCompletedToday * settings.workDuration} min
+                      </span>
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -307,6 +313,233 @@ const handleSaveSettings = () => {
                     </div>
                   </CardContent>
                 </Card>
+                <audio ref={audioRef} src="/sounds/bell.mp3" />
+              </TabsContent>
+              <TabsContent value="settings" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Timer Settings</CardTitle>
+                    <CardDescription>Customize your pomodoro timer</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <Label htmlFor="work-duration">Focus Duration</Label>
+                          <span className="text-sm text-muted-foreground">{tempSettings.workDuration} minutes</span>
+                        </div>
+                        <Slider
+                          id="work-duration"
+                          min={5}
+                          max={60}
+                          step={5}
+                          value={[tempSettings.workDuration]}
+                          onValueChange={(value) => setTempSettings({ ...tempSettings, workDuration: value[0] })}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <Label htmlFor="short-break-duration">Short Break Duration</Label>
+                          <span className="text-sm text-muted-foreground">
+                            {tempSettings.shortBreakDuration} minutes
+                          </span>
+                        </div>
+                        <Slider
+                          id="short-break-duration"
+                          min={1}
+                          max={15}
+                          step={1}
+                          value={[tempSettings.shortBreakDuration]}
+                          onValueChange={(value) => setTempSettings({ ...tempSettings, shortBreakDuration: value[0] })}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <Label htmlFor="long-break-duration">Long Break Duration</Label>
+                          <span className="text-sm text-muted-foreground">
+                            {tempSettings.longBreakDuration} minutes
+                          </span>
+                        </div>
+                        <Slider
+                          id="long-break-duration"
+                          min={5}
+                          max={30}
+                          step={5}
+                          value={[tempSettings.longBreakDuration]}
+                          onValueChange={(value) => setTempSettings({ ...tempSettings, longBreakDuration: value[0] })}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <Label htmlFor="sessions-before-long-break">Sessions Before Long Break</Label>
+                          <span className="text-sm text-muted-foreground">
+                            {tempSettings.sessionsBeforeLongBreak} sessions
+                          </span>
+                        </div>
+                        <Slider
+                          id="sessions-before-long-break"
+                          min={2}
+                          max={8}
+                          step={1}
+                          value={[tempSettings.sessionsBeforeLongBreak]}
+                          onValueChange={(value) =>
+                            setTempSettings({ ...tempSettings, sessionsBeforeLongBreak: value[0] })
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="auto-start-breaks">Auto-start Breaks</Label>
+                        <Switch
+                          id="auto-start-breaks"
+                          checked={tempSettings.autoStartBreaks}
+                          onCheckedChange={(checked) => setTempSettings({ ...tempSettings, autoStartBreaks: checked })}
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="auto-start-pomodoros">Auto-start Pomodoros</Label>
+                        <Switch
+                          id="auto-start-pomodoros"
+                          checked={tempSettings.autoStartPomodoros}
+                          onCheckedChange={(checked) =>
+                            setTempSettings({ ...tempSettings, autoStartPomodoros: checked })
+                          }
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="sound-enabled">Sound Notifications</Label>
+                        <Switch
+                          id="sound-enabled"
+                          checked={tempSettings.soundEnabled}
+                          onCheckedChange={(checked) => setTempSettings({ ...tempSettings, soundEnabled: checked })}
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="notifications-enabled">Desktop Notifications</Label>
+                        <Switch
+                          id="notifications-enabled"
+                          checked={tempSettings.notificationsEnabled}
+                          onCheckedChange={(checked) => {
+                            if (checked && "Notification" in window && Notification.permission !== "granted") {
+                              Notification.requestPermission()
+                            }
+                            setTempSettings({ ...tempSettings, notificationsEnabled: checked })
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex justify-between">
+                    <Button variant="outline" onClick={handleResetSettings}>
+                      Reset to Default
+                    </Button>
+                    <Button onClick={handleSaveSettings}>Save Settings</Button>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="stats" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Pomodoro Statistics</CardTitle>
+                    <CardDescription>Track your productivity over time</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="space-y-2">
+                      <h3 className="font-medium">Last 7 Days</h3>
+                      <div className="h-[200px] flex items-end justify-between">
+                        {history.slice(0, 7).map((day, i) => (
+                          <div key={i} className="flex flex-col items-center gap-2">
+                            <div
+                              className="bg-primary rounded-t-md w-12"
+                              style={{
+                                height: `${(day.completedPomodoros / 10) * 150}px`,
+                                transition: "height 0.3s ease",
+                              }}
+                            ></div>
+                            <span className="text-sm">
+                              {new Date(day.date).toLocaleDateString(undefined, { weekday: "short" })}
+                            </span>
+                            <span className="text-xs text-muted-foreground">{day.completedPomodoros}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <Card>
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-sm font-medium">Total Pomodoros</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="text-2xl font-bold">
+                            {history.reduce((total, day) => total + day.completedPomodoros, 0)}
+                          </div>
+                          <p className="text-xs text-muted-foreground">All time</p>
+                        </CardContent>
+                      </Card>
+
+                      <Card>
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-sm font-medium">Total Focus Time</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="text-2xl font-bold">
+                            {history.reduce((total, day) => total + day.totalWorkTime, 0)} min
+                          </div>
+                          <p className="text-xs text-muted-foreground">All time</p>
+                        </CardContent>
+                      </Card>
+
+                      <Card>
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-sm font-medium">Daily Average</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="text-2xl font-bold">
+                            {Math.round(
+                              history.reduce((total, day) => total + day.completedPomodoros, 0) / history.length,
+                            )}
+                          </div>
+                          <p className="text-xs text-muted-foreground">Pomodoros per day</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h3 className="font-medium">Recent Activity</h3>
+                      <div className="space-y-2">
+                        {history.slice(0, 5).map((day, i) => (
+                          <div key={i} className="flex justify-between items-center p-2 rounded-md hover:bg-muted">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4 text-muted-foreground" />
+                              <span>{new Date(day.date).toLocaleDateString()}</span>
+                            </div>
+                            <div className="flex items-center gap-4">
+                              <div className="flex items-center gap-1">
+                                <CheckCircle className="h-4 w-4 text-green-500" />
+                                <span>{day.completedPomodoros} pomodoros</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Clock className="h-4 w-4 text-blue-500" />
+                                <span>{day.totalWorkTime} min</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
             </Tabs>
           </div>
         </div>
