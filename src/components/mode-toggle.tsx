@@ -7,11 +7,12 @@ export function ModeToggle() {
   const { theme, setTheme } = useTheme()
 
   return (
-    <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}> 
+    <Button variant="ghost" size="icon" className="
+    dark:bg-transparent dark:hover:bg-white/30 dark:active:bg-transparent rounded-full" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}> 
       {theme === "dark" ? (
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
+        <Sun className="h-[3rem] w-[3rem]" />
       ) : (
-        <Moon className="h-[1.2rem] w-[1.2rem]" />
+        <Moon className="h-[3rem] w-[3rem]" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

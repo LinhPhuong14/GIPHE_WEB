@@ -29,6 +29,7 @@ export const FloatingDock = ({
   );
 };
 
+
 const FloatingDockMobile = ({
   items,
   className,
@@ -37,25 +38,23 @@ const FloatingDockMobile = ({
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className={cn("relative block md:hidden", className)}>
       <AnimatePresence>
         {open && (
           <motion.div
             layoutId="nav"
-            className="absolute bottom-full mb-2 inset-x-0 flex flex-col gap-2"
+            className="absolute pt-2 left-1/2 -translate-x-1/2 top-full mb-2 flex flex-col gap-2"
           >
             {items.map((item, idx) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{
                   opacity: 0,
-                  y: 10,
+                  y: -10,
                   transition: {
                     delay: idx * 0.05,
                   },
@@ -65,9 +64,9 @@ const FloatingDockMobile = ({
                 <Link
                   href={item.href}
                   key={item.title}
-                  className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
+                  className="h-10 w-28 rounded-full bg-gray-80 dark:bg-neutral-600 flex items-center justify-center"
                 >
-                  <div className="h-4 w-4">{item.icon}</div>
+                  <div className=" flex d-flex items-center"><div className="h-4 w-4 mr-2">{item.icon}</div> {item.title}</div>
                 </Link>
               </motion.div>
             ))}
