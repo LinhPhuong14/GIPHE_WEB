@@ -35,13 +35,13 @@ export function TopNavbar() {
       </div> */}
 
       <div className="flex-1 flex items-center">
-        <div className="hidden md:flex md:w-64 lg:w-96">
+        <div className="hidden md:flex md:w-80 lg:w-96">
           <div className="relative w-full">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Search..."
-              className="w-full rounded-full pl-8 bg-muted/50 border-none focus-visible:ring-1"
+              className="w-full rounded-full pl-8 border focus-visible:ring-1"
             />
           </div>
         </div>
