@@ -31,7 +31,7 @@ export default function DashboardLayout({
           {/* <MainNav /> */}
           <div className="flex flex-col flex-1 overflow-hidden">
             <TopNavbar />
-            <main className="flex-1 overflow-y-auto">{children}</main>
+            <main className="flex-1 overflow-y-auto overflow-x-hidden md:pr-2">{children}</main>
             <ChatbotAdvisor />
           </div>
         </div>
